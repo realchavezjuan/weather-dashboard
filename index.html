@@ -9,17 +9,71 @@
     <title>Weather Dashboard</title>
 </head>
 <body>
-    <header>Weather Dashboard</header>
-    <main>
-        <section>
-            <h2>Search for a city: </h2>
+    <header>
+        <h1>Weather Dashboard</h1>
+    </header>
+    <main class="main-container">
+        <section class="left-section">
+            <form>
+                <h2>Search for a city: </h2>
+                <input type="text" placeholder="Salem" id="form-content"/>
+                <input type="submit" value="Search" class="submit-city-btn"/>
+            </form>
+            <div class="search-history">
+
+            </div>
         </section>
-        <section>
-            <h2></h2>
-        </section>
-        <section>
-            <h2>5-day forcast: </h2>
-        </section>
+        <div>
+            <section class="todays-weather-container">
+                <h2 id="city"></h2>
+                <div>
+                    <p id="temperature">Temp: </p>
+                    <p id="wind">Wind: </p>
+                    <p id="humidity">Humidity: </p>
+                    <p id="uv">UV Index: </p>
+                </div>
+            </section>
+            <section>
+                <h2>5-day forcast: </h2>
+                <div class="forcast-container">
+                    <div>
+                        <!-- date -->
+                        <!-- icon -->
+                        <p>Temp: </p> 
+                        <p>Wind: </p>
+                        <p>Humidity: </p>
+                    </div>
+                    <div>
+                        <!-- date -->
+                        <!-- icon -->
+                        <p>Temp: </p> 
+                        <p>Wind: </p>
+                        <p>Humidity: </p>
+                    </div>
+                    <div>
+                        <!-- date -->
+                        <!-- icon -->
+                        <p>Temp: </p> 
+                        <p>Wind: </p>
+                        <p>Humidity: </p>
+                    </div>
+                    <div>
+                        <!-- date -->
+                        <!-- icon -->
+                        <p>Temp: </p> 
+                        <p>Wind: </p>
+                        <p>Humidity: </p>
+                    </div>
+                    <div>
+                        <!-- date -->
+                        <!-- icon -->
+                        <p>Temp: </p> 
+                        <p>Wind: </p>
+                        <p>Humidity: </p>
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
 
     <script src="./assets/js/script.js"></script>

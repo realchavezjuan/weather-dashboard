@@ -1,0 +1,25 @@
+.main-container{
+    display:flex;
+    flex-direction: row;
+}
+
+.left-section{
+    margin-right: 20px;
+}
+
+.left-section form{
+    border-bottom: 2px solid;
+    padding-bottom: 10px;
+    border-color: black;
+}
+.forcast-container{
+    display:flex;
+    flex-direction: row;
+}
+
+.todays-weather-container{
+    border: 1px;
+    border-style: solid;
+    border-color: black;
+    padding-left: 10px;
+}
