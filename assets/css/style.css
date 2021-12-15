@@ -3,15 +3,15 @@
     flex-direction: row;
 }
 
-.left-section{
-    margin-right: 20px;
+.left-section * {
+    margin: 0px 20px 10px 0;
 }
 
 .left-section form{
     border-bottom: 2px solid;
-    padding-bottom: 10px;
     border-color: black;
 }
+
 .forcast-container{
     display:flex;
     flex-direction: row;
@@ -22,4 +22,23 @@
     border-style: solid;
     border-color: black;
     padding-left: 10px;
+    margin: top 10px;
+}
+
+.todays-weather-container h2 {
+    margin-top: 10px;
+}
+
+.card{
+    margin-right: 20px;
+    border: 1px;
+    border-style: solid;
+    border-color: black;
+    padding: 0 20px 0 5px;
+    background-color:rgb(34, 51, 84);
+    
+}
+
+.card p{
+    color:white;
 }
