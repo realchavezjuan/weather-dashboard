@@ -42,3 +42,11 @@
 .card p{
     color:white;
 }
+
+.history-button{
+    background-color:rgb(34, 51, 84);
+}
+
+.history-button p{
+    color:white;
+}
