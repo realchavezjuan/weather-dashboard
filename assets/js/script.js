@@ -60,7 +60,6 @@ var applyCoordinates = function(data,city){
                 response.json().then(function(data){
                    todaysWeatherHandler(data,city)
                    forecastHandler(data)
-                   console.log(data);
                 })
             }
             else {
@@ -243,16 +242,16 @@ var getWeekDay = function(data, i) {
 var uvIndexLevel = function(data){
     uvIndex = data.current.uvi;
     if (uvIndex<3){
-        todaysUvEl.className="uv-low";
+        todaysUvEl.className="uv uv-low";
     }
     if(uvIndex>=3 && uvIndex<7){
-        todaysUvEl.className="uv-moderate";
+        todaysUvEl.className="uv uv-moderate";
     }
     if(uvIndex>=7 && uvIndex<10){
-        todaysUvEl.className="uv-high";
+        todaysUvEl.className="uv uv-high";
     }
     if(uvIndex>=10) {
-        todaysUvEl.className="uv-very-high";
+        todaysUvEl.className="uv uv-very-high";
     }
 }
 

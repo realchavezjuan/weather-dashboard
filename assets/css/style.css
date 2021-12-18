@@ -3,6 +3,15 @@
     flex-direction: row;
 }
 
+header{
+    text-align: center;
+    background-color: rgb(34, 51, 84);
+}
+
+header h1{
+    color: white;
+}
+
 .left-section * {
     margin: 0px 20px 10px 0;
 }
@@ -12,49 +21,34 @@
     border-color: black;
 }
 
-.forcast-container{
-    display:flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
 .todays-weather-container{
     border: 1px;
     border-style: solid;
     border-color: black;
-    padding-left: 10px;
+    padding: 0 0 10px 30px;
     margin: top 10px;
+    border-radius: 8px;
 }
 
 .todays-weather-container h2 {
     margin-top: 10px;
 }
 
+
 #city-icon-div {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
 }
 
-.card{
-    margin-right: 20px;
-    border: 1px;
-    border-style: solid;
-    border-color: black;
-    padding: 0 20px 0 5px;
-    background-color:rgb(34, 51, 84);
-    
+#current-day{
+    font-weight:bolder;
 }
 
-.card p{
-    color:white;
-}
-
-.history-button{
-    background-color:rgb(34, 51, 84);
-}
-
-.history-button p{
-    color:white;
+.uv {
+    border-radius: 3px;
+    display: table;
+    padding: 3px 6px 3px 6px;
 }
 
 .uv-low{
@@ -71,4 +65,39 @@
 
 .uv-very-high{
     background-color: red;
+}
+
+.forcast-container{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.card{
+    margin-right: 20px;
+    border: 1px;
+    border-style: solid;
+    border-color: black;
+    padding: 0 20px 0 20px;
+    background-color:rgb(34, 51, 84);
+    border-radius: 8px;
+}
+
+.card p{
+    color:white;
+}
+
+.card #week-day{
+    text-align: center;
+    font-weight: bold;
+}
+
+.history-button{
+    background-color:rgb(34, 51, 84);
+    border-radius: 9px;
+    text-align: center;
+}
+
+.history-button p{
+    color:white;
 }
