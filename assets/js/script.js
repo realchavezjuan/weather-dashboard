@@ -1,6 +1,7 @@
 var submitBtnEl = document.querySelector(".submit-city-btn");
 var formContentEl = document.querySelector("#form-content");
 var cityTitleEl = document.querySelector("#city");
+var todaysDate = document.querySelector("#current-day")
 var todaysTemperatureEl = document.querySelector("#temperature");
 var todaysWindEl = document.querySelector("#wind");
 var todaysHumidityEl = document.querySelector("#humidity");
@@ -19,6 +20,7 @@ var formSubmitHandler = function(event){
     //takes the value of the user input(city name)
     var city = formContentEl.value;
 
+    formContentEl.value = "";
     createHistoryBtn(city);
     putCityInStorage(city);
 
@@ -58,6 +60,7 @@ var applyCoordinates = function(data,city){
                 response.json().then(function(data){
                    todaysWeatherHandler(data,city)
                    forecastHandler(data)
+                   console.log(data);
                 })
             }
             else {
@@ -73,7 +76,10 @@ var applyCoordinates = function(data,city){
 var todaysWeatherHandler = function(data, city){
 
     //puts the name of the city in the H2 elements
-    cityTitleEl.innerHTML = city;
+    cityTitleEl.innerHTML = city.toUpperCase();
+    setCurrentWeatherIcon(data);
+    // puts the current day and date of the weather
+    todaysDate.innerHTML = getCurrentDay(data)
     //puts the current temperature into the p element
     todaysTemperatureEl.innerHTML = "Temp: " + data.current.temp + "°F";
     //puts the current wind speed into the p element
@@ -82,7 +88,9 @@ var todaysWeatherHandler = function(data, city){
     todaysHumidityEl.innerHTML = "Humidity: " + data.current.humidity + "%";
     //puts the current UV Index into the p element
     todaysUvEl.innerHTML = "UV Index: " + data.current.uvi;
-
+    //sets color of uv 
+    uvIndexLevel(data);
+    
 }
 
 var forecastHandler = function(data){
@@ -96,15 +104,24 @@ var forecastHandler = function(data){
         //gets the entire card element
         var forcastCardEl = forcastContainer[0].children[i-1];
         //gets the individual p elements
-        var forcastTempEl = forcastCardEl.children[0];
-        var forcastWindEl = forcastCardEl.children[1];
-        var forcastHumidityEl = forcastCardEl.children[2];
+        
+        var forcastDayEl = forcastCardEl.children[0];
+        var forcastIconEl = forcastCardEl.children[1];
+        var forcastTempEl = forcastCardEl.children[2];
+        var forcastWindEl = forcastCardEl.children[3];
+        var forcastHumidityEl = forcastCardEl.children[4];
+        // gets the day data of that day from function
+        var day = getWeekDay(data, i);
         //gets the temperature data of that day
         var temperature = dailyData.temp.day;
         // gets the wind data of that day
         var wind = dailyData.wind_speed;
         // gets the humidity data of that day
         var humidity = dailyData.humidity;
+        // adds the inner HTML to the day element in the card
+        forcastDayEl.innerHTML = day;
+        // sets the icon on the html element
+        setWeekDayWeatherIcon(data, forcastIconEl, i);
         // adds  the inner HTML to the temperature p element 
         forcastTempEl.innerHTML = "Temp: " + temperature + "°F";
         // adds  the inner HTML to the wind p element 
@@ -122,7 +139,7 @@ var createHistoryBtn = function(city){
     var cityNameEl = document.createElement("p");
     //give element a unique id to add click listener
     cityNameEl.setAttribute("unique-id", idCounter);
-    cityNameEl.innerHTML = city;
+    cityNameEl.innerHTML = city.toUpperCase();
     
     // appending p element inside div to put the city name in the button
     historyBtnEl.appendChild(cityNameEl);
@@ -134,7 +151,9 @@ var createHistoryBtn = function(city){
 }
 
 var putCityInStorage = function(city){
+    //push in array
     cityHistoryArray.push(city);
+    //put in storage
     localStorage["searched-city"] = JSON.stringify(cityHistoryArray);
     
 }
@@ -174,10 +193,80 @@ var historyBtnHandler = function(city) {
 }
 
 var clickHistoryBtn = function(event) {
+    
     var clickedHistoryEl = event.target
+    
     cityName = clickedHistoryEl.innerHTML;
     
     historyBtnHandler(cityName);
+}
+
+var getCurrentDay = function(data) { 
+    var unixTimeStamp = data.current.dt
+    //js works with milliseconds
+    unixTimeStamp = unixTimeStamp * 1000;
+    // turn it into an obj
+    unixTimeStampObj = new Date(unixTimeStamp);
+    // .getDay returns a number 0-6
+    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var day = days[unixTimeStampObj.getDay()];
+    // .getMonth returns a number 0-11
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var month = months[unixTimeStampObj.getMonth()];
+    // get dayof the month
+    var date = unixTimeStampObj.getDate();
+    
+    var todayIs = day + ", " + month + ", " + date;
+    return todayIs;
+}
+
+var getWeekDay = function(data, i) { 
+    var unixTimeStamp = data.daily[i].dt
+    //js works with milliseconds
+    unixTimeStamp = unixTimeStamp * 1000;
+    // turn it into an obj
+    unixTimeStampObj = new Date(unixTimeStamp);
+    // .getDay returns a number 0-6
+    var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    var day = days[unixTimeStampObj.getDay()];
+    // .getMonth returns a number 0-11
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var month = months[unixTimeStampObj.getMonth()];
+    // get dayof the month
+    var date = unixTimeStampObj.getDate();
+    
+    var todayIs = day + ", " + month + ", " + date;
+    return todayIs;
+}
+
+// this function sets the background color of the UV Index display
+var uvIndexLevel = function(data){
+    uvIndex = data.current.uvi;
+    if (uvIndex<3){
+        todaysUvEl.className="uv-low";
+    }
+    if(uvIndex>=3 && uvIndex<7){
+        todaysUvEl.className="uv-moderate";
+    }
+    if(uvIndex>=7 && uvIndex<10){
+        todaysUvEl.className="uv-high";
+    }
+    if(uvIndex>=10) {
+        todaysUvEl.className="uv-very-high";
+    }
+}
+
+var setCurrentWeatherIcon = function(data){
+    var icon = data.current.weather[0].icon;
+    // gives the current img element a src attribute
+    var currentWeatherIconEl = document.getElementById("current-weather-icon");
+    currentWeatherIconEl.src = "https://openweathermap.org/img/wn/"+icon+"@2x.png";
+}
+
+var setWeekDayWeatherIcon = function(data, forcastIconEl, i){
+    var icon = data.daily[i].weather[0].icon;
+    //gives the forcast img element a src attribute
+    forcastIconEl.src = "https://openweathermap.org/img/wn/"+icon+"@2x.png";
 }
 
 main();

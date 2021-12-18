@@ -15,6 +15,7 @@
 .forcast-container{
     display:flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .todays-weather-container{
@@ -27,6 +28,11 @@
 
 .todays-weather-container h2 {
     margin-top: 10px;
+}
+
+#city-icon-div {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .card{
@@ -49,4 +55,20 @@
 
 .history-button p{
     color:white;
+}
+
+.uv-low{
+    background-color:green;
+}
+
+.uv-moderate{
+    background-color: yellow;
+}
+
+.uv-high{
+    background-color: orange;
+}
+
+.uv-very-high{
+    background-color: red;
 }
